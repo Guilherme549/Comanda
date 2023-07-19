@@ -1,0 +1,69 @@
+@charset "UTF8";
+
+body, html{
+   padding: 0px;
+   margin: 0px;
+
+}
+
+body{
+    background-color: #E0BF00;
+}
+
+
+h1{
+    text-align: center;
+}
+
+#pesquisar{
+    width: 80%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    height: 25px;
+}
+
+#buscar{
+    border-radius: 5px;
+    height: 30px;
+}
+
+header{
+    width: 100vw;
+}
+
+nav{
+    width: 100vw;
+    text-align: center;
+}
+
+.mesa{
+    display:  inline-block;
+    background-color: #61571D;
+    color: white;
+    border: 1px solid black;
+    width: 200px;
+    height: 80px;
+    margin: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.404);
+
+}
+
+#adicionar{
+    display: block;
+    border: 1px solid black;
+    width: 150px;
+    height: 25px;
+    background-color: black;
+    border-radius: 48px;
+    text-align: center;
+    margin: 10px;
+    padding: 10px; 
+    position: absolute;
+    top: 85%;
+    left: 58%;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
