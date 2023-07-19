@@ -1,9 +1,9 @@
 @charset "UTF8";
 
 body, html{
-   padding: 0px;
-   margin: 0px;
-
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
 }
 
 body{
@@ -59,8 +59,8 @@ nav{
     margin: 10px;
     padding: 10px; 
     position: absolute;
-    top: 85%;
-    left: 58%;
+    top: 88%;
+    left: 50%;
 }
 
 a{
