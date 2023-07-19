@@ -1,35 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comanda</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-      <link rel="stylesheet" href="estilos/style.css">
-
+    <link rel="stylesheet" href="estilos/comanda.css">
 </head>
+
 <body>
     <header>
         <h1>Comanda</h1>
     </header>
     <main>
         <form action="#" method="post" autocomplete="off">
-           <fieldset>
-                <p>
-                    <label for="imesa">Mesa</label>
-                    <input type="number" name="mesa" id="imesa" min="1">
-                </p>
-           </fieldset>
-            <br>
-           <fieldset>
-                <legend>Cardápio</legend>
-                    <p>cerveja</p>
-                    <p>refrigerante</p>
-                    <p>Água</p>
-                    <p>Espetinho</p>
-           </fieldset>
+            <fieldset>
+                <label for="mesa">Mesa:</label>
+                <input type="number" name="mesa" id="mesa" min="1" required>
+            </fieldset>
+            <fieldset>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cardapio</th>
+                            <th>Qtd</th>
+                            <th>Preço</th>
+                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>    
+                                    <label for="cerveja">Cerveja:</label>
+                                    <select id="inputCervejas" class="form-select">
+                                        <option selected>Cervejas...</option>
+                                            <option value="heineken">Heineken</option>
+                                            <option value="brahma">Brahma</option>
+                                            <option value="antarctica">Antarctica</option>
+                                            <option value="amstel">Amstel</option>
+                                    </select>
+                                
+                                </td>   
+                                <td>
+                                    <input type="number" name="qtdCerveja" id="qtdCerveja" min="0">
+                                </td>
+                                <td>
+                                    <output id="precoCerveja">2,50</output>
+                                </td>
+                            </tr>
+                            <tr>
+
+                            </tr>
+                        </tbody>
+                    </thead>
+                </table>
+            </fieldset>
         </form>
     </main>
 </body>
+
 </html>
