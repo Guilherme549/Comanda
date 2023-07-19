@@ -24,37 +24,97 @@
                         <tr>
                             <th>Cardapio</th>
                             <th>Qtd</th>
-                            <th>Preço</th>
+                            <th>Preço Unitário</th>
+                            <th>Preço Total</th>
                         </tr>
-                        <tbody>
-                            <tr>
-                                <td>    
-                                    <label for="cerveja">Cerveja:</label>
-                                    <select id="inputCervejas" class="form-select">
-                                        <option selected>Cervejas...</option>
-                                            <option value="heineken">Heineken</option>
-                                            <option value="brahma">Brahma</option>
-                                            <option value="antarctica">Antarctica</option>
-                                            <option value="amstel">Amstel</option>
-                                    </select>
-                                
-                                </td>   
-                                <td>
-                                    <input type="number" name="qtdCerveja" id="qtdCerveja" min="0">
-                                </td>
-                                <td>
-                                    <output id="precoCerveja">2,50</output>
-                                </td>
-                            </tr>
-                            <tr>
-
-                            </tr>
-                        </tbody>
                     </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label for="inputCervejas">Cerveja:</label>
+                                <select id="inputCervejas" class="form-select" name="cerveja">
+                                    <option selected disabled>Cerveja...</option>
+                                    <option value="heineken">Heineken</option>
+                                    <option value="brahma">Brahma</option>
+                                    <option value="antarctica">Antarctica</option>
+                                    <option value="amstel">Amstel</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" name="qtdCerveja" id="qtdCerveja" min="0" oninput="atualizarPrecoTotal()">
+                            </td>
+                            <td>
+                                <output id="precoCerveja">2.50</output>
+                            </td>
+                            <td>
+                                <output id="precoTotalCerveja">0.00</output>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="espetinhos">Espetinho:</label>
+                                <select name="espetinhos" id="espetinhos" onchange="atualizarPrecoEspetinho()">
+                                    <option selected disabled>Espetinho...</option>
+                                    <option value="medalhao">Medalhão</option>
+                                    <option value="carneVaca">CarneVaca</option>
+                                    <option value="linguica">Liguiça</option>
+                                    <option value="kafta">Kafta</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" name="qtdEspetinho" id="qtdEspetinho" min="0" oninput="atualizarPrecoTotal()">
+                            </td>
+                            <td>
+                                <output id="precoEspetinho">6.00</output>
+                            </td>
+                            <td>
+                                <output id="precoTotalEspetinho">0.00</output>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
+            </fieldset>
+            <fieldset>
+                <label for="precoTotal">Preço Total:</label>
+                <output id="precoTotal">0.00</output>
             </fieldset>
         </form>
     </main>
+
+    <script>
+        function atualizarPrecoEspetinho() {
+            var espetinhoSelecionado = document.getElementById('espetinhos').value;
+            var precoEspetinho = 6.00;
+
+            if (espetinhoSelecionado === 'medalhao' || espetinhoSelecionado === 'carneVaca') {
+                precoEspetinho = 8.00;
+            }
+
+            document.getElementById('precoEspetinho').innerText = precoEspetinho.toFixed(2);
+            atualizarPrecoTotal();
+        }
+
+        function atualizarPrecoTotal() {
+            var quantidadeCerveja = document.getElementById('qtdCerveja').value;
+            var precoUnitarioCerveja = parseFloat(document.getElementById('precoCerveja').innerText);
+
+            var quantidadeEspetinho = document.getElementById('qtdEspetinho').value;
+            var precoUnitarioEspetinho = parseFloat(document.getElementById('precoEspetinho').innerText);
+
+            var precoTotalCerveja = quantidadeCerveja * precoUnitarioCerveja;
+            var precoTotalEspetinho = quantidadeEspetinho * precoUnitarioEspetinho;
+            var precoTotal = precoTotalCerveja + precoTotalEspetinho;
+
+            document.getElementById('precoTotalCerveja').innerText = precoTotalCerveja.toFixed(2);
+            document.getElementById('precoTotalEspetinho').innerText = precoTotalEspetinho.toFixed(2);
+            document.getElementById('precoTotal').innerText = precoTotal.toFixed(2);
+        }
+
+        // Chama a função quando a página é carregada para garantir que o preço inicial seja exibido corretamente
+        window.addEventListener('load', function () {
+            atualizarPrecoEspetinho();
+        });
+    </script>
 </body>
 
 </html>
