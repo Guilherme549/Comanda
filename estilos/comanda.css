@@ -92,3 +92,7 @@ th, td {
 #adicionar:hover {
     background-color: #333;
 }
+
+select{
+    width: 80px;
+}
