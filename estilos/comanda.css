@@ -39,6 +39,8 @@ form {
     padding: 20px;
     width: 80%;
     max-width: 400px;
+    max-height: 100vh; /* Define o tamanho máximo do formulário para o tamanho da janela de visualização */
+    overflow-y: auto; /* Adiciona uma barra de rolagem apenas quando o conteúdo do formulário excede o tamanho da janela de visualização */
 }
 
 fieldset {
@@ -47,10 +49,19 @@ fieldset {
     margin: 1px;
 }
 
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
+table {
+    border-collapse: collapse;
+    width: 100%; /* Ajusta a largura da tabela para ocupar 100% do contêiner pai (formulário) */
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px; /* Reduz o espaço interno das células da tabela */
+    text-align: center; /* Centraliza o conteúdo nas células da tabela */
+}
+
+select {
+    width: 100px; /* Aumenta a largura do seletor para melhor visualização do conteúdo */
 }
 
 input[type="number"] {
@@ -61,20 +72,7 @@ input[type="number"] {
     margin-bottom: 10px;
 }
 
-table{
-    border-collapse: collapse;
-    width: 90%;
-}
-
-th, td {
-    border: 1px solid black;
-    padding: 10px;
-    
-}
-
-
-
-#enviar-pedido{
+#enviar-pedido {
     display: block;
     border: none;
     background-color: #000;
@@ -91,8 +89,4 @@ th, td {
 
 #adicionar:hover {
     background-color: #333;
-}
-
-select{
-    width: 80px;
 }
