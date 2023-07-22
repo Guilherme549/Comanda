@@ -144,8 +144,8 @@
 
         <!-- Output para exibir os sabores selecionados -->
         <fieldset>
-            <label for="listaSaboresOutput">Sabores Selecionados:</label>
-            <output id="listaSaboresOutput"></output>
+            <label for="itensSelecionados">Itens selecionados</label>
+            <output id="itensSelecionados"></output>
         </fieldset>
     </main>
 
@@ -170,9 +170,10 @@
         function adicionarSaborCerveja() {
             var selectCerveja = document.getElementById('inputCervejas');
             var saborSelecionado = selectCerveja.value;
+            var quantidadeCerveja = document.getElementById('qtdCerveja').value;
 
             if (!saboresCervejaSelecionados.includes(saborSelecionado)) {
-                saboresCervejaSelecionados.push(saborSelecionado);
+                saboresCervejaSelecionados.push(saborSelecionado + " (Qtd: " + quantidadeCerveja + ")");
                 atualizarListaSabores();
             }
         }
@@ -180,9 +181,10 @@
         function adicionarSaborRefrigerante() {
             var selectRefrigerante = document.getElementById('refrigerantes');
             var saborSelecionado = selectRefrigerante.value;
+            var quantidadeRefrigerante = document.getElementById('qtdRefrigerante').value;
 
             if (!saboresRefrigeranteSelecionados.includes(saborSelecionado)) {
-                saboresRefrigeranteSelecionados.push(saborSelecionado);
+                saboresRefrigeranteSelecionados.push(saborSelecionado + " (Qtd: " + quantidadeRefrigerante + ")");
                 atualizarListaSabores();
             }
         }
@@ -190,9 +192,10 @@
         function adicionarSaborEspetinho() {
             var selectEspetinho = document.getElementById('espetinhos');
             var saborSelecionado = selectEspetinho.value;
+            var quantidadeEspetinho = document.getElementById('qtdEspetinho').value;
 
             if (!saboresEspetinhoSelecionados.includes(saborSelecionado)) {
-                saboresEspetinhoSelecionados.push(saborSelecionado);
+                saboresEspetinhoSelecionados.push(saborSelecionado + " (Qtd: " + quantidadeEspetinho + ")");
                 atualizarListaSabores();
             }
         }
@@ -200,19 +203,20 @@
         function adicionarSaborCaldo() {
             var selectCaldo = document.getElementById('caldo');
             var saborSelecionado = selectCaldo.value;
+            var quantidadeCaldo = document.getElementById('qtdCaldo').value;
 
             if (!saboresCaldoSelecionados.includes(saborSelecionado)) {
-                saboresCaldoSelecionados.push(saborSelecionado);
+                saboresCaldoSelecionados.push(saborSelecionado + " (Qtd: " + quantidadeCaldo + ")");
                 atualizarListaSabores();
             }
         }
 
         function atualizarListaSabores() {
-            var listaSaboresOutput = document.getElementById('listaSaboresOutput');
-            listaSaboresOutput.innerText = "Cervejas: " + saboresCervejaSelecionados.join(', ') + "\n";
-            listaSaboresOutput.innerText += "Refrigerantes: " + saboresRefrigeranteSelecionados.join(', ') + "\n";
-            listaSaboresOutput.innerText += "Espetinhos: " + saboresEspetinhoSelecionados.join(', ') + "\n";
-            listaSaboresOutput.innerText += "Caldo: " + saboresCaldoSelecionados.join(', ');
+            var itensSelecionados = document.getElementById('itensSelecionados');
+            itensSelecionados.innerText = "Cervejas: " + saboresCervejaSelecionados.join(', ') + "\n";
+            itensSelecionados.innerText += "Refrigerantes: " + saboresRefrigeranteSelecionados.join(', ') + "\n";
+            itensSelecionados.innerText += "Espetinhos: " + saboresEspetinhoSelecionados.join(', ') + "\n";
+            itensSelecionados.innerText += "Caldo: " + saboresCaldoSelecionados.join(', ');
         }
 
         function atualizarPrecoCerveja() {
