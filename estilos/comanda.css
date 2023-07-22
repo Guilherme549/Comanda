@@ -33,14 +33,14 @@ main {
 }
 
 form {
-    background-color: #fff;
+    background-color: #F9F9F9; /* Fundo mais claro para o formulário */
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 80%;
-    max-width: 400px;
-    max-height: 100vh; /* Define o tamanho máximo do formulário para o tamanho da janela de visualização */
-    overflow-y: auto; /* Adiciona uma barra de rolagem apenas quando o conteúdo do formulário excede o tamanho da janela de visualização */
+    max-width: 500px; /* Reduzi a largura máxima para 500px */
+    max-height: 100vh;
+    overflow-y: auto;
 }
 
 fieldset {
@@ -51,21 +51,25 @@ fieldset {
 
 table {
     border-collapse: collapse;
-    width: 100%; /* Ajusta a largura da tabela para ocupar 100% do contêiner pai (formulário) */
+    width: 100%;
 }
 
 th, td {
-    border: 1px solid black;
-    padding: 8px; /* Reduz o espaço interno das células da tabela */
-    text-align: center; /* Centraliza o conteúdo nas células da tabela */
+    border: 1px solid #61571D; /* Bordas com a cor original para as células da tabela */
+    padding: 10px;
+    text-align: center;
 }
 
 select {
-    width: 100px; /* Aumenta a largura do seletor para melhor visualização do conteúdo */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
 
 input[type="number"] {
-    width: 50%;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -75,7 +79,7 @@ input[type="number"] {
 #enviar-pedido {
     display: block;
     border: none;
-    background-color: #000;
+    background-color: #61571D; /* Cor original para o botão "Confirmar" */
     color: #fff;
     border-radius: 24px;
     text-align: center;
@@ -87,6 +91,22 @@ input[type="number"] {
     float: right;
 }
 
-#adicionar:hover {
-    background-color: #333;
+#enviar-pedido:hover {
+    background-color: #4D4522; /* Efeito de hover com cor ligeiramente mais escura */
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #61571D; /* Cor original para os labels */
+}
+
+/* Estilo para o output de sabores selecionados */
+#listaSaboresOutput {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin-top: 20px;
+    white-space: pre-line;
+    color: #61571D; /* Cor original para o texto do output */
+    line-height: 1.5;
 }
