@@ -69,7 +69,7 @@ select {
 }
 
 input[type="number"] {
-    width: 100%;
+    width: 65%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -102,11 +102,12 @@ label {
 }
 
 /* Estilo para o output de sabores selecionados */
-#itensSelecionados {
+#itensSelecionados{
     font-family: Arial, sans-serif;
     font-size: 16px;
     margin-top: 20px;
     white-space: pre-line;
-    color: black; /* Cor original para o texto do output */
+    color:  white; /* Cor original para o texto do output */
     line-height: 1.5;
 }
+
