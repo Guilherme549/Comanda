@@ -33,14 +33,14 @@ main {
 }
 
 form {
-    background-color: #F9F9F9; /* Fundo mais claro para o formulário */
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 80%;
-    max-width: 500px; /* Reduzi a largura máxima para 500px */
-    max-height: 100vh;
-    overflow-y: auto;
+    max-width: 400px;
+    max-height: 100vh; /* Define o tamanho máximo do formulário para o tamanho da janela de visualização */
+    overflow-y: auto; /* Adiciona uma barra de rolagem apenas quando o conteúdo do formulário excede o tamanho da janela de visualização */
 }
 
 fieldset {
@@ -51,25 +51,25 @@ fieldset {
 
 table {
     border-collapse: collapse;
-    width: 100%;
+    width: 100%; /* Ajusta a largura da tabela para ocupar 100% do contêiner pai (formulário) */
 }
 
 th, td {
-    border: 1px solid #61571D; /* Bordas com a cor original para as células da tabela */
-    padding: 10px;
-    text-align: center;
+    border: 1px solid black;
+    padding: 8px; /* Reduz o espaço interno das células da tabela */
+    text-align: center; /* Centraliza o conteúdo nas células da tabela */
 }
 
 select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
+    width: 100px; /* Aumenta a largura do seletor para melhor visualização do conteúdo */
 }
 
 input[type="number"] {
+<<<<<<< HEAD
     width: 65%;
+=======
+    width: 50%;
+>>>>>>> parent of 5eba748 (Adicionando mais itens no cardapio e suas funcionalidades)
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -79,7 +79,7 @@ input[type="number"] {
 #enviar-pedido {
     display: block;
     border: none;
-    background-color: #61571D; /* Cor original para o botão "Confirmar" */
+    background-color: #000;
     color: #fff;
     border-radius: 24px;
     text-align: center;
@@ -91,6 +91,7 @@ input[type="number"] {
     float: right;
 }
 
+<<<<<<< HEAD
 #enviar-pedido:hover {
     background-color: #4D4522; /* Efeito de hover com cor ligeiramente mais escura */
 }
@@ -109,5 +110,9 @@ label {
     white-space: pre-line;
     color:  white; /* Cor original para o texto do output */
     line-height: 1.5;
+=======
+#adicionar:hover {
+    background-color: #333;
+>>>>>>> parent of 5eba748 (Adicionando mais itens no cardapio e suas funcionalidades)
 }
 
