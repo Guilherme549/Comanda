@@ -65,11 +65,8 @@ select {
 }
 
 input[type="number"] {
-<<<<<<< HEAD
     width: 65%;
-=======
     width: 50%;
->>>>>>> parent of 5eba748 (Adicionando mais itens no cardapio e suas funcionalidades)
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -91,7 +88,7 @@ input[type="number"] {
     float: right;
 }
 
-<<<<<<< HEAD
+
 #enviar-pedido:hover {
     background-color: #4D4522; /* Efeito de hover com cor ligeiramente mais escura */
 }
@@ -110,9 +107,8 @@ label {
     white-space: pre-line;
     color:  white; /* Cor original para o texto do output */
     line-height: 1.5;
-=======
-#adicionar:hover {
+
+#adicionar:hover{
     background-color: #333;
->>>>>>> parent of 5eba748 (Adicionando mais itens no cardapio e suas funcionalidades)
 }
 
