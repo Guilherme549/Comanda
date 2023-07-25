@@ -22,7 +22,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Cardapio</th>
+                            <th>Cardápio</th>
                             <th>Qtd</th>
                             <th>Preço Unitário</th>
                             <th>Preço Total</th>
@@ -34,7 +34,7 @@
                             <td>
                                 <label for="inputCervejas">Cerveja:</label>
                                 <select id="inputCervejas" class="form-select" name="cerveja"
-                                    onchange="atualizarPrecoCerveja();">
+                                    onchange="atualizarPreco('cerveja');">
                                     <option selected disabled>Cerveja...</option>
                                     <option value="heinekenLn" data-preco="7.50">HeinekenLn</option>
                                     <option value="heineken269ml" data-preco="4.50">Heineken269ml</option>
@@ -48,7 +48,7 @@
                             </td>
                             <td>
                                 <input type="number" name="qtdCerveja" id="qtdCerveja" min="0" value="1"
-                                    oninput="atualizarPrecoCerveja();">
+                                    oninput="atualizarPreco('cerveja');">
                             </td>
                             <td>
                                 <output id="precoCervejaOutput">0.00</output>
@@ -57,14 +57,14 @@
                                 <output id="precoTotalCervejaOutput">0.00</output>
                             </td>
                             <td>
-                                <input type="button" value="Adicionar" onclick="adicionarSaborCerveja();">
+                                <input type="button" value="Adicionar" onclick="adicionarSabor('cerveja');">
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <label for="refrigerantes">Refrigerantes</label>
                                 <select name="refrigerantes" id="refrigerantes"
-                                    onchange="atualizarPrecoRefrigerante();">
+                                    onchange="atualizarPreco('refrigerante');">
                                     <option selected disabled>Refri...</option>
                                     <option value="coca2L" data-preco="10.00">Coca2L</option>
                                     <option value="cocaRt" data-preco="7.50">CocaRt</option>
@@ -77,7 +77,7 @@
                             </td>
                             <td>
                                 <input type="number" name="qtdRefrigerante" id="qtdRefrigerante" min="0" value="1"
-                                    oninput="atualizarPrecoRefrigerante();">
+                                    oninput="atualizarPreco('refrigerante');">
                             </td>
                             <td>
                                 <output id="precoRefrigeranteOutput">0.00</output>
@@ -86,13 +86,15 @@
                                 <output id="precoTotalRefrigeranteOutput">0.00</output>
                             </td>
                             <td>
-                                <input type="button" value="Adicionar" onclick="adicionarSaborRefrigerante();">
+                                <input type="button" value="Adicionar" onclick="adicionarSabor('refrigerante');">
                             </td>
                         </tr>
+
+                        <!-- Adicione aqui os outros produtos seguindo o mesmo padrão -->
                         <tr>
                             <td>
                                 <label for="espetinhos">Espetinho:</label>
-                                <select name="espetinhos" id="espetinhos" onchange="atualizarPrecoEspetinho();">
+                                <select name="espetinhos" id="espetinhos" onchange="atualizarPreco('espetinho');">
                                     <option selected disabled>Espetos...</option>
                                     <option value="medalhao" data-preco="8.00">Medalhão</option>
                                     <option value="carneVaca" data-preco="8.00">CarneVaca</option>
@@ -102,7 +104,7 @@
                             </td>
                             <td>
                                 <input type="number" name="qtdEspetinho" id="qtdEspetinho" min="0" value="1"
-                                    oninput="atualizarPrecoEspetinho();">
+                                    oninput="atualizarPreco('espetinho');">
                             </td>
                             <td>
                                 <output id="precoEspetinhoOutput">0.00</output>
@@ -111,22 +113,20 @@
                                 <output id="precoTotalEspetinhoOutput">0.00</output>
                             </td>
                             <td>
-                                <input type="button" value="Adicionar" onclick="adicionarSaborEspetinho();">
+                                <input type="button" value="Adicionar" onclick="adicionarSabor('espetinho');">
                             </td>
                         </tr>
-
-                        <!-- Novo select para "Caldo" -->
                         <tr>
                             <td>
                                 <label for="caldo">Caldo:</label>
-                                <select name="caldo" id="caldo" onchange="atualizarPrecoCaldo();">
+                                <select name="caldo" id="caldo" onchange="atualizarPreco('caldo');">
                                     <option selected disabled>Caldo...</option>
                                     <option value="caldoFrango" data-preco="10.00">Caldo de Frango</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="number" name="qtdCaldo" id="qtdCaldo" min="0" value="1"
-                                    oninput="atualizarPrecoCaldo();">
+                                    oninput="atualizarPreco('caldo');">
                             </td>
                             <td>
                                 <output id="precoCaldoOutput">0.00</output>
@@ -135,7 +135,7 @@
                                 <output id="precoTotalCaldoOutput">0.00</output>
                             </td>
                             <td>
-                                <input type="button" value="Adicionar" onclick="adicionarSaborCaldo();">
+                                <input type="button" value="Adicionar" onclick="adicionarSabor('caldo');">
                             </td>
                         </tr>
                     </tbody>
@@ -167,76 +167,27 @@
         document.getElementById('precoTotalCaldoOutput').innerText = parseFloat(document.getElementById('precoTotalCaldoOutput').innerText);
         document.getElementById('precoTotalOutput').innerText = parseFloat(document.getElementById('precoTotalOutput').innerText);
 
-        // Objeto para armazenar os sabores selecionados de cada produto
-        var saboresSelecionados = {
-            cerveja: [],
-            refrigerante: [],
-            espetinho: [],
-            caldo: []
-        };
+        // Objeto para armazenar os sabores selecionados
+        var saboresSelecionados = {};
 
-        function adicionarSaborCerveja() {
-            var selectCerveja = document.getElementById('inputCervejas');
-            var saborSelecionado = selectCerveja.value;
-            var quantidadeCerveja = document.getElementById('qtdCerveja').value;
-            var precoTotalCerveja = parseFloat(document.getElementById('precoTotalCervejaOutput').innerText);
+        function adicionarSabor(produto) {
+            var selectElement = document.getElementById('input' + produto[0].toUpperCase() + produto.slice(1) + 's');
+            var saborSelecionado = selectElement.value;
+            var quantidadeElement = document.getElementById('qtd' + produto[0].toUpperCase() + produto.slice(1));
+            var quantidade = parseInt(quantidadeElement.value, 10);
+            var precoUnitario = parseFloat(selectElement.options[selectElement.selectedIndex].getAttribute('data-preco'));
 
-            if (!saborJaSelecionado(saboresSelecionados.cerveja, saborSelecionado)) {
-                saboresSelecionados.cerveja.push({
-                    sabor: saborSelecionado,
-                    quantidade: quantidadeCerveja,
-                    precoTotal: precoTotalCerveja
-                });
-                atualizarListaSabores();
-                atualizarPrecoTotal();
+            var precoTotal = quantidade * precoUnitario;
+
+            if (!saboresSelecionados.hasOwnProperty(produto)) {
+                saboresSelecionados[produto] = [];
             }
-        }
 
-        function adicionarSaborRefrigerante() {
-            var selectRefrigerante = document.getElementById('refrigerantes');
-            var saborSelecionado = selectRefrigerante.value;
-            var quantidadeRefrigerante = document.getElementById('qtdRefrigerante').value;
-            var precoTotalRefrigerante = parseFloat(document.getElementById('precoTotalRefrigeranteOutput').innerText);
-
-            if (!saborJaSelecionado(saboresSelecionados.refrigerante, saborSelecionado)) {
-                saboresSelecionados.refrigerante.push({
+            if (!saborJaSelecionado(saboresSelecionados[produto], saborSelecionado)) {
+                saboresSelecionados[produto].push({
                     sabor: saborSelecionado,
-                    quantidade: quantidadeRefrigerante,
-                    precoTotal: precoTotalRefrigerante
-                });
-                atualizarListaSabores();
-                atualizarPrecoTotal();
-            }
-        }
-
-        function adicionarSaborEspetinho() {
-            var selectEspetinho = document.getElementById('espetinhos');
-            var saborSelecionado = selectEspetinho.value;
-            var quantidadeEspetinho = document.getElementById('qtdEspetinho').value;
-            var precoTotalEspetinho = parseFloat(document.getElementById('precoTotalEspetinhoOutput').innerText);
-
-            if (!saborJaSelecionado(saboresSelecionados.espetinho, saborSelecionado)) {
-                saboresSelecionados.espetinho.push({
-                    sabor: saborSelecionado,
-                    quantidade: quantidadeEspetinho,
-                    precoTotal: precoTotalEspetinho
-                });
-                atualizarListaSabores();
-                atualizarPrecoTotal();
-            }
-        }
-
-        function adicionarSaborCaldo() {
-            var selectCaldo = document.getElementById('caldo');
-            var saborSelecionado = selectCaldo.value;
-            var quantidadeCaldo = document.getElementById('qtdCaldo').value;
-            var precoTotalCaldo = parseFloat(document.getElementById('precoTotalCaldoOutput').innerText);
-
-            if (!saborJaSelecionado(saboresSelecionados.caldo, saborSelecionado)) {
-                saboresSelecionados.caldo.push({
-                    sabor: saborSelecionado,
-                    quantidade: quantidadeCaldo,
-                    precoTotal: precoTotalCaldo
+                    quantidade: quantidade,
+                    precoTotal: precoTotal
                 });
                 atualizarListaSabores();
                 atualizarPrecoTotal();
@@ -266,58 +217,284 @@
             itensSelecionados.innerText = listaSabores;
         }
 
-        function atualizarPrecoCerveja() {
-            var selectCerveja = document.getElementById('inputCervejas');
-            var precoCerveja = parseFloat(selectCerveja.options[selectCerveja.selectedIndex].getAttribute('data-preco'));
-            var quantidadeCerveja = document.getElementById('qtdCerveja').value;
+        function atualizarPreco(produto) {
+            var selectElement = document.getElementById('input' + produto[0].toUpperCase() + produto.slice(1) + 's');
+            var precoElement = document.getElementById('preco' + produto[0].toUpperCase() + produto.slice(1) + 'Output');
+            var precoTotalElement = document.getElementById('precoTotal' + produto[0].toUpperCase() + produto.slice(1) + 'Output');
+            var quantidadeElement = document.getElementById('qtd' + produto[0].toUpperCase() + produto.slice(1));
+            var precoUnitario = parseFloat(selectElement.options[selectElement.selectedIndex].getAttribute('data-preco'));
+            var quantidade = parseInt(quantidadeElement.value, 10);
 
-            document.getElementById('precoCervejaOutput').innerText = precoCerveja.toFixed(2);
+            precoElement.innerText = precoUnitario.toFixed(2);
 
-            var precoTotalCerveja = quantidadeCerveja * precoCerveja;
-            document.getElementById('precoTotalCervejaOutput').innerText = precoTotalCerveja.toFixed(2);
-        }
-
-        function atualizarPrecoRefrigerante() {
-            var selectRefrigerante = document.getElementById('refrigerantes');
-            var precoRefrigerante = parseFloat(selectRefrigerante.options[selectRefrigerante.selectedIndex].getAttribute('data-preco'));
-            var quantidadeRefrigerante = document.getElementById('qtdRefrigerante').value;
-
-            document.getElementById('precoRefrigeranteOutput').innerText = precoRefrigerante.toFixed(2);
-
-            var precoTotalRefrigerante = quantidadeRefrigerante * precoRefrigerante;
-            document.getElementById('precoTotalRefrigeranteOutput').innerText = precoTotalRefrigerante.toFixed(2);
-        }
-
-        function atualizarPrecoEspetinho() {
-            var selectEspetinho = document.getElementById('espetinhos');
-            var precoEspetinho = parseFloat(selectEspetinho.options[selectEspetinho.selectedIndex].getAttribute('data-preco'));
-            var quantidadeEspetinho = document.getElementById('qtdEspetinho').value;
-
-            document.getElementById('precoEspetinhoOutput').innerText = precoEspetinho.toFixed(2);
-
-            var precoTotalEspetinho = quantidadeEspetinho * precoEspetinho;
-            document.getElementById('precoTotalEspetinhoOutput').innerText = precoTotalEspetinho.toFixed(2);
-        }
-
-        function atualizarPrecoCaldo() {
-            var selectCaldo = document.getElementById('caldo');
-            var precoCaldo = parseFloat(selectCaldo.options[selectCaldo.selectedIndex].getAttribute('data-preco'));
-            var quantidadeCaldo = document.getElementById('qtdCaldo').value;
-
-            document.getElementById('precoCaldoOutput').innerText = precoCaldo.toFixed(2);
-
-            var precoTotalCaldo = quantidadeCaldo * precoCaldo;
-            document.getElementById('precoTotalCaldoOutput').innerText = precoTotalCaldo.toFixed(2);
+            var precoTotal = quantidade * precoUnitario;
+            precoTotalElement.innerText = precoTotal.toFixed(2);
         }
 
         function atualizarPrecoTotal() {
-            var precoTotalCerveja = parseFloat(document.getElementById('precoTotalCervejaOutput').innerText);
-            var precoTotalRefrigerante = parseFloat(document.getElementById('precoTotalRefrigeranteOutput').innerText);
-            var precoTotalEspetinho = parseFloat(document.getElementById('precoTotalEspetinhoOutput').innerText);
-            var precoTotalCaldo = parseFloat(document.getElementById('precoTotalCaldoOutput').innerText);
+            var precoTotal = 0;
 
-            // Soma os totais individuais de cada produto para obter o total geral
-            var precoTotal = precoTotalCerveja + precoTotalRefrigerante + precoTotalEspetinho + precoTotalCaldo;
+            for (const produto in saboresSelecionados) {
+                if (saboresSelecionados.hasOwnProperty(produto)) {
+                    const sabores = saboresSelecionados[produto];
+                    for (const sabor of sabores) {
+                        precoTotal += sabor.precoTotal;
+                    }
+                }
+            }
+
+            // Atualiza o "precoTotalOutput" com o novo total
+            document.getElementById('precoTotalOutput').innerText = precoTotal.toFixed(2);
+        }
+
+    </script>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comanda</title>
+    <link rel="stylesheet" href="estilos/comanda.css">
+</head>
+
+<body>
+    <header>
+        <h1>Comanda</h1>
+    </header>
+    <main>
+        <form action="#" method="post" autocomplete="off">
+            <fieldset>
+                <label for="mesa">Mesa:</label>
+                <input type="number" name="mesa" id="mesa" min="1" required>
+            </fieldset>
+            <fieldset>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cardápio</th>
+                            <th>Qtd</th>
+                            <th>Preço Unitário</th>
+                            <th>Preço Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label for="inputCervejas">Cerveja:</label>
+                                <select id="inputCervejas" class="form-select" name="cerveja"
+                                    onchange="atualizarPreco('cerveja');">
+                                    <option selected disabled>Cerveja...</option>
+                                    <option value="heinekenLn" data-preco="7.50">HeinekenLn</option>
+                                    <option value="heineken269ml" data-preco="4.50">Heineken269ml</option>
+                                    <option value="heineken350ml" data-preco="5.50">Heineken350ml</option>
+                                    <option value="brahma269ml" data-preco="3.00">Brahma269ml</option>
+                                    <option value="brahma350ml" data-preco="3.50">Brahma350ml</option>
+                                    <option value="antarctica350ml" data-preco="3.50">Antarctica350ml</option>
+                                    <option value="amstel269ml" data-preco="3.00">Amstel269ml</option>
+                                    <option value="amstel350ml" data-preco="3.50">Amstel350ml</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" name="qtdCerveja" id="qtdCerveja" min="0" value="1"
+                                    oninput="atualizarPreco('cerveja');">
+                            </td>
+                            <td>
+                                <output id="precoCervejaOutput">0.00</output>
+                            </td>
+                            <td>
+                                <output id="precoTotalCervejaOutput">0.00</output>
+                            </td>
+                            <td>
+                                <input type="button" value="Adicionar" onclick="adicionarSabor('cerveja');">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="refrigerantes">Refrigerantes</label>
+                                <select name="refrigerantes" id="refrigerantes"
+                                    onchange="atualizarPreco('refrigerante');">
+                                    <option selected disabled>Refri...</option>
+                                    <option value="coca2L" data-preco="10.00">Coca2L</option>
+                                    <option value="cocaRt" data-preco="7.50">CocaRt</option>
+                                    <option value="coca350" data-preco="3.50">Coca350</option>
+                                    <option value="guarana2L" data-preco="8.00">Guaraná2L</option>
+                                    <option value="guarana1L" data-preco="4.50">Guaraná1L</option>
+                                    <option value="guarana350" data-preco="3.50">Guaraná350</option>
+                                    <option value="fanta230" data-preco="3.50">Fanta350</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" name="qtdRefrigerante" id="qtdRefrigerante" min="0" value="1"
+                                    oninput="atualizarPreco('refrigerante');">
+                            </td>
+                            <td>
+                                <output id="precoRefrigeranteOutput">0.00</output>
+                            </td>
+                            <td>
+                                <output id="precoTotalRefrigeranteOutput">0.00</output>
+                            </td>
+                            <td>
+                                <input type="button" value="Adicionar" onclick="adicionarSabor('refrigerante');">
+                            </td>
+                        </tr>
+
+                        <!-- Adicione aqui os outros produtos seguindo o mesmo padrão -->
+                        <tr>
+                            <td>
+                                <label for="espetinhos">Espetinho:</label>
+                                <select name="espetinhos" id="espetinhos" onchange="atualizarPreco('espetinho');">
+                                    <option selected disabled>Espetos...</option>
+                                    <option value="medalhao" data-preco="8.00">Medalhão</option>
+                                    <option value="carneVaca" data-preco="8.00">CarneVaca</option>
+                                    <option value="linguica" data-preco="6.00">Linguiça</option>
+                                    <option value="kafta" data-preco="6.00">Kafta</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" name="qtdEspetinho" id="qtdEspetinho" min="0" value="1"
+                                    oninput="atualizarPreco('espetinho');">
+                            </td>
+                            <td>
+                                <output id="precoEspetinhoOutput">0.00</output>
+                            </td>
+                            <td>
+                                <output id="precoTotalEspetinhoOutput">0.00</output>
+                            </td>
+                            <td>
+                                <input type="button" value="Adicionar" onclick="adicionarSabor('espetinho');">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="caldo">Caldo:</label>
+                                <select name="caldo" id="caldo" onchange="atualizarPreco('caldo');">
+                                    <option selected disabled>Caldo...</option>
+                                    <option value="caldoFrango" data-preco="10.00">Caldo de Frango</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" name="qtdCaldo" id="qtdCaldo" min="0" value="1"
+                                    oninput="atualizarPreco('caldo');">
+                            </td>
+                            <td>
+                                <output id="precoCaldoOutput">0.00</output>
+                            </td>
+                            <td>
+                                <output id="precoTotalCaldoOutput">0.00</output>
+                            </td>
+                            <td>
+                                <input type="button" value="Adicionar" onclick="adicionarSabor('caldo');">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input id="enviar-pedido" type="submit" value="Confirmar">
+            </fieldset>
+            <fieldset>
+                <label for="precoTotal">Preço Total:</label>
+                <output id="precoTotalOutput">0.00</output>
+            </fieldset>
+        </form>
+
+        <!-- Output para exibir os sabores selecionados -->
+        <fieldset>
+            <label for="itensSelecionados">Itens selecionados</label>
+            <output id="itensSelecionados"></output>
+        </fieldset>
+    </main>
+
+    <script>
+        // Define os valores iniciais dos outputs como números
+        document.getElementById('precoCervejaOutput').innerText = parseFloat(document.getElementById('precoCervejaOutput').innerText);
+        document.getElementById('precoTotalCervejaOutput').innerText = parseFloat(document.getElementById('precoTotalCervejaOutput').innerText);
+        document.getElementById('precoRefrigeranteOutput').innerText = parseFloat(document.getElementById('precoRefrigeranteOutput').innerText);
+        document.getElementById('precoTotalRefrigeranteOutput').innerText = parseFloat(document.getElementById('precoTotalRefrigeranteOutput').innerText);
+        document.getElementById('precoEspetinhoOutput').innerText = parseFloat(document.getElementById('precoEspetinhoOutput').innerText);
+        document.getElementById('precoTotalEspetinhoOutput').innerText = parseFloat(document.getElementById('precoTotalEspetinhoOutput').innerText);
+        document.getElementById('precoCaldoOutput').innerText = parseFloat(document.getElementById('precoCaldoOutput').innerText);
+        document.getElementById('precoTotalCaldoOutput').innerText = parseFloat(document.getElementById('precoTotalCaldoOutput').innerText);
+        document.getElementById('precoTotalOutput').innerText = parseFloat(document.getElementById('precoTotalOutput').innerText);
+
+        // Objeto para armazenar os sabores selecionados
+        var saboresSelecionados = {};
+
+        function adicionarSabor(produto) {
+            var selectElement = document.getElementById('input' + produto[0].toUpperCase() + produto.slice(1) + 's');
+            var saborSelecionado = selectElement.value;
+            var quantidadeElement = document.getElementById('qtd' + produto[0].toUpperCase() + produto.slice(1));
+            var quantidade = parseInt(quantidadeElement.value, 10);
+            var precoUnitario = parseFloat(selectElement.options[selectElement.selectedIndex].getAttribute('data-preco'));
+
+            var precoTotal = quantidade * precoUnitario;
+
+            if (!saboresSelecionados.hasOwnProperty(produto)) {
+                saboresSelecionados[produto] = [];
+            }
+
+            if (!saborJaSelecionado(saboresSelecionados[produto], saborSelecionado)) {
+                saboresSelecionados[produto].push({
+                    sabor: saborSelecionado,
+                    quantidade: quantidade,
+                    precoTotal: precoTotal
+                });
+                atualizarListaSabores();
+                atualizarPrecoTotal();
+            }
+        }
+
+        function saborJaSelecionado(saboresSelecionados, saborSelecionado) {
+            return saboresSelecionados.some(sabor => sabor.sabor === saborSelecionado);
+        }
+
+        function atualizarListaSabores() {
+            var itensSelecionados = document.getElementById('itensSelecionados');
+            var listaSabores = "";
+
+            // Itera sobre os sabores selecionados de cada produto e cria uma lista formatada
+            for (const produto in saboresSelecionados) {
+                if (saboresSelecionados.hasOwnProperty(produto)) {
+                    const sabores = saboresSelecionados[produto];
+                    if (sabores.length > 0) {
+                        listaSabores += produto[0].toUpperCase() + produto.slice(1) + ": ";
+                        listaSabores += sabores.map(sabor => sabor.sabor + " (Qtd: " + sabor.quantidade + ")").join(", ");
+                        listaSabores += "\n";
+                    }
+                }
+            }
+
+            itensSelecionados.innerText = listaSabores;
+        }
+
+        function atualizarPreco(produto) {
+            var selectElement = document.getElementById('input' + produto[0].toUpperCase() + produto.slice(1) + 's');
+            var precoElement = document.getElementById('preco' + produto[0].toUpperCase() + produto.slice(1) + 'Output');
+            var precoTotalElement = document.getElementById('precoTotal' + produto[0].toUpperCase() + produto.slice(1) + 'Output');
+            var quantidadeElement = document.getElementById('qtd' + produto[0].toUpperCase() + produto.slice(1));
+            var precoUnitario = parseFloat(selectElement.options[selectElement.selectedIndex].getAttribute('data-preco'));
+            var quantidade = parseInt(quantidadeElement.value, 10);
+
+            precoElement.innerText = precoUnitario.toFixed(2);
+
+            var precoTotal = quantidade * precoUnitario;
+            precoTotalElement.innerText = precoTotal.toFixed(2);
+        }
+
+        function atualizarPrecoTotal() {
+            var precoTotal = 0;
+
+            for (const produto in saboresSelecionados) {
+                if (saboresSelecionados.hasOwnProperty(produto)) {
+                    const sabores = saboresSelecionados[produto];
+                    for (const sabor of sabores) {
+                        precoTotal += sabor.precoTotal;
+                    }
+                }
+            }
 
             // Atualiza o "precoTotalOutput" com o novo total
             document.getElementById('precoTotalOutput').innerText = precoTotal.toFixed(2);
