@@ -148,6 +148,10 @@
             var precoUnitario = parseFloat(selectElement.options[selectElement.selectedIndex].getAttribute('data-preco'));
             var precoTotal = quantidade * precoUnitario;
 
+            if (selectElement.options[selectElement.selectedIndex].hasAttribute('disabled')) {
+                return; // Não adiciona à lista se a opção estiver desabilitada
+            }
+
             if (!saboresSelecionados.hasOwnProperty(produto)) {
                 saboresSelecionados[produto] = {};
             }
