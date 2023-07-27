@@ -102,24 +102,6 @@
                                 <input type="button" value="Adicionar" onclick="adicionarItem('espetinho');">
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <label for="caldo">Caldo:</label>
-                                <select name="caldo" id="inputCaldo" onchange="atualizarPreco('caldo');">
-                                    <option selected disabled>Caldo...</option>
-                                    <option value="caldoFrango" data-preco="10.00">Caldo de Frango</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input type="number" name="qtdCaldo" id="qtdCaldo" min="0" value="1">
-                            </td>
-                            <td>
-                                <output id="precoCaldoOutput">0.00</output>
-                            </td>
-                            <td>
-                                <input type="button" value="Adicionar" onclick="adicionarItem('caldo');">
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
                 <input id="enviar-pedido" type="submit" value="Confirmar">
