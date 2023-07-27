@@ -119,14 +119,14 @@
     </main>
 
     <script>
-        // Função para salvar os dados do objeto saboresSelecionados no localStorage
-        function salvarDadosLocalStorage() {
-            localStorage.setItem('saboresSelecionados', JSON.stringify(saboresSelecionados));
+        // Função para salvar os dados do objeto saboresSelecionados no sessionStorage
+        function salvarDadosSessionStorage() {
+            sessionStorage.setItem('saboresSelecionados', JSON.stringify(saboresSelecionados));
         }
 
-        // Função para carregar os dados do localStorage para o objeto saboresSelecionados
-        function carregarDadosLocalStorage() {
-            var dadosSalvos = localStorage.getItem('saboresSelecionados');
+        // Função para carregar os dados do sessionStorage para o objeto saboresSelecionados
+        function carregarDadosSessionStorage() {
+            var dadosSalvos = sessionStorage.getItem('saboresSelecionados');
             if (dadosSalvos) {
                 saboresSelecionados = JSON.parse(dadosSalvos);
                 atualizarListaSabores();
@@ -134,8 +134,8 @@
             }
         }
 
-        // Chama a função de carregar os dados do localStorage ao carregar a página
-        window.addEventListener('load', carregarDadosLocalStorage);
+        // Chama a função de carregar os dados do sessionStorage ao carregar a página
+        window.addEventListener('load', carregarDadosSessionStorage);
 
         var saboresSelecionados = {};
 
@@ -169,7 +169,7 @@
                 atualizarListaSabores();
                 atualizarPrecoTotal();
             }
-            salvarDadosLocalStorage();
+            salvarDadosSessionStorage();
         }
 
         function removerItem(produto, sabor) {
@@ -178,7 +178,7 @@
                 atualizarListaSabores();
                 atualizarPrecoTotal();
             }
-            salvarDadosLocalStorage();
+            salvarDadosSessionStorage();
         }
 
         function atualizarListaSabores() {
