@@ -83,8 +83,7 @@
                         <tr>
                             <td>
                                 <label for="espetinhos">Espetinho:</label>
-                                <select name="espetinhos" id="inputEspetinhos"
-                                    onchange="atualizarPreco('espetinho');">
+                                <select name="espetinhos" id="inputEspetinhos" onchange="atualizarPreco('espetinho');">
                                     <option selected disabled>Espetos...</option>
                                     <option value="medalhao" data-preco="8.00">Medalhão</option>
                                     <option value="carneVaca" data-preco="8.00">CarneVaca</option>
@@ -120,6 +119,24 @@
     </main>
 
     <script>
+        // Função para salvar os dados do objeto saboresSelecionados no localStorage
+        function salvarDadosLocalStorage() {
+            localStorage.setItem('saboresSelecionados', JSON.stringify(saboresSelecionados));
+        }
+
+        // Função para carregar os dados do localStorage para o objeto saboresSelecionados
+        function carregarDadosLocalStorage() {
+            var dadosSalvos = localStorage.getItem('saboresSelecionados');
+            if (dadosSalvos) {
+                saboresSelecionados = JSON.parse(dadosSalvos);
+                atualizarListaSabores();
+                atualizarPrecoTotal();
+            }
+        }
+
+        // Chama a função de carregar os dados do localStorage ao carregar a página
+        window.addEventListener('load', carregarDadosLocalStorage);
+
         var saboresSelecionados = {};
 
         function adicionarItem(produto) {
@@ -152,6 +169,7 @@
                 atualizarListaSabores();
                 atualizarPrecoTotal();
             }
+            salvarDadosLocalStorage();
         }
 
         function removerItem(produto, sabor) {
@@ -160,6 +178,7 @@
                 atualizarListaSabores();
                 atualizarPrecoTotal();
             }
+            salvarDadosLocalStorage();
         }
 
         function atualizarListaSabores() {
@@ -190,6 +209,12 @@
             var precoTotal = quantidade * precoUnitario;
 
             document.getElementById('preco' + produto[0].toUpperCase() + produto.slice(1) + 'Output').innerText = precoUnitario.toFixed(2);
+
+            var saborSelecionado = selectElement.value;
+            if (saboresSelecionados.hasOwnProperty(produto) && saboresSelecionados[produto].hasOwnProperty(saborSelecionado)) {
+                quantidade = saboresSelecionados[produto][saborSelecionado].quantidade;
+                precoTotal = quantidade * precoUnitario;
+            }
 
             if (saboresSelecionados.hasOwnProperty(produto) && saboresSelecionados[produto].hasOwnProperty(selectElement.value)) {
                 saboresSelecionados[produto][selectElement.value].quantidade = quantidade;
