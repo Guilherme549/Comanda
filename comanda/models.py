@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+
+class Comanda(models.Model):
+    mesa = models.ForeignKey(to, )
