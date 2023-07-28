@@ -22,7 +22,12 @@
         </form>
     </nav>
     <main>
-        <a class="mesa" href="#">mesa: 1</a>
+        {% for i in pedido%}
+        <a class="mesa" href="#">Mesa: {{i.mesa}}
+            <p>Cerveja: {{i.cerveja}}</p>
+        </a>
+
+        {%endfor%}
 
     </main>
     <div id="adicionar">
