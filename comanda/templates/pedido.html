@@ -185,41 +185,27 @@
             salvarDadosSessionStorage();
         }
 
-        // Crie uma lista para armazenar os valores de precoTotalSabor de cada item adicionado
-// Crie uma lista para armazenar os valores de precoTotalSabor de cada item adicionado
-var listaPrecosSabores = [];
-var listaPrecoTotalSabor = []; // Inicialize a lista aqui
-
-function atualizarListaSabores() {
-    var itensSelecionados = document.getElementById('itensSelecionados');
-    var listaSabores = "";
-    var precoTotal = 0; // Inicializa o valor do precoTotal
-    listaPrecosSabores = []; // Limpa a listaPrecosSabores antes de atualizá-la
-    listaPrecoTotalSabor = []; // Limpa a listaPrecoTotalSabor antes de atualizá-la
-
-    for (const produto in saboresSelecionados) {
-        if (saboresSelecionados.hasOwnProperty(produto)) {
-            for (const sabor in saboresSelecionados[produto]) {
-                if (sabor !== "precoTotal" && saboresSelecionados[produto].hasOwnProperty(sabor)) {
-                    var quantidade = saboresSelecionados[produto][sabor].quantidade;
-                    var precoTotalSabor = saboresSelecionados[produto][sabor].precoTotal.toFixed(2);
-                    precoTotal += saboresSelecionados[produto][sabor].precoTotal; // Atualiza o precoTotal
-                    listaPrecosSabores.push(precoTotalSabor); // Adiciona o precoTotalSabor à lista
-                    listaPrecoTotalSabor.push(precoTotalSabor); // Adiciona o precoTotalSabor à lista
-                    listaSabores += produto + " - " + sabor + " x " + quantidade + " - Total: R$" + precoTotalSabor + " <button onclick=\"removerItem('" + produto + "', '" + sabor + "')\">Remover</button><br>";
+        function atualizarListaSabores() {
+            var itensSelecionados = document.getElementById('itensSelecionados');
+            var listaSabores = "";
+        
+            for (const produto in saboresSelecionados) {
+                if (saboresSelecionados.hasOwnProperty(produto)) {
+                    for (const sabor in saboresSelecionados[produto]) {
+                        if (sabor !== "precoTotal" && saboresSelecionados[produto].hasOwnProperty(sabor)) {
+                            var quantidade = saboresSelecionados[produto][sabor].quantidade;
+                            var precoTotal = saboresSelecionados[produto][sabor].precoTotal.toFixed(2);
+                            listaSabores += produto + " - " + sabor + " x " + quantidade + " - Total: R$" + precoTotal + " <button onclick=\"removerItem('" + produto + "', '" + sabor + "')\">Remover</button><br>";
+                        }
+                    }
                 }
             }
+        
+            itensSelecionados.innerHTML = listaSabores;
+        
+            // Atualiza o campo oculto com a lista de sabores
+            document.getElementById('listaSaboresInput').value = listaSabores;
         }
-    }
-
-    itensSelecionados.innerHTML = listaSabores;
-
-    // Atualiza o campo oculto com a lista de sabores e o precoTotal
-    document.getElementById('listaSaboresInput').value = listaPrecosSabores.join(', '); // Transforma a lista em uma string separada por vírgula
-    document.getElementById('precoTotalInput').value = listaPrecoTotalSabor.toFixed(2);
-}
-
-
 
         function atualizarPreco(produto) {
             var selectElement = document.getElementById('input' + produto[0].toUpperCase() + produto.slice(1) + 's');
