@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Comanda
+from decimal import Decimal
 
 
 def visualizarPedidos(request):
@@ -20,6 +21,14 @@ def comanda(request):
         qtdEspetinho = int(request.POST.get("qtdEspetinho"))
         precoTotal = request.POST.get("precoTotal")
 
+        listaSabores = request.POST.get("listaSabores")
+        if precoTotal:
+            precoTotal = Decimal(precoTotal)
+        else:
+            precoTotal = Decimal('0.00')
+
+        print(listaSabores)
+
         comanda = Comanda(
             mesa=mesa,
             cerveja=cerveja,
@@ -33,5 +42,4 @@ def comanda(request):
 
         comanda.save()
         pedido = Comanda.objects.all()
-        return render(request, "index.html", {'pedido': pedido})
-
+        return render(request, "index.html", {"pedido": pedido})
