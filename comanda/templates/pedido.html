@@ -112,6 +112,7 @@
                 <!-- Adicione o campo de entrada oculto abaixo -->
                 <input type="hidden" name="precoTotal" id="precoTotalInput">
                 <input type="hidden" name="listaSabores" id="listaSaboresInput">
+                <input type="hidden" name="listaSaboresBackend" id="listaSaboresBackendInput">
             </fieldset>
         </form>
 
@@ -124,22 +125,13 @@
 
     <script>
         // Função para salvar os dados do objeto saboresSelecionados no sessionStorage
-        function salvarDadosSessionStorage() {
-            sessionStorage.setItem('saboresSelecionados', JSON.stringify(saboresSelecionados));
-        }
+       
 
         // Função para carregar os dados do sessionStorage para o objeto saboresSelecionados
-        function carregarDadosSessionStorage() {
-            var dadosSalvos = sessionStorage.getItem('saboresSelecionados');
-            if (dadosSalvos) {
-                saboresSelecionados = JSON.parse(dadosSalvos);
-                atualizarListaSabores();
-                atualizarPrecoTotal();
-            }
-        }
+    
 
         // Chama a função de carregar os dados do sessionStorage ao carregar a página
-        window.addEventListener('load', carregarDadosSessionStorage);
+
 
         var saboresSelecionados = {};
 
@@ -173,7 +165,7 @@
                 atualizarListaSabores();
                 atualizarPrecoTotal();
             }
-            salvarDadosSessionStorage();
+            
         }
 
         function removerItem(produto, sabor) {
@@ -182,13 +174,14 @@
                 atualizarListaSabores();
                 atualizarPrecoTotal();
             }
-            salvarDadosSessionStorage();
+            
         }
 
         function atualizarListaSabores() {
             var itensSelecionados = document.getElementById('itensSelecionados');
             var listaSabores = "";
-        
+            var listaSaboresBackend = []; // Nova lista para enviar ao back-end
+
             for (const produto in saboresSelecionados) {
                 if (saboresSelecionados.hasOwnProperty(produto)) {
                     for (const sabor in saboresSelecionados[produto]) {
@@ -196,15 +189,23 @@
                             var quantidade = saboresSelecionados[produto][sabor].quantidade;
                             var precoTotal = saboresSelecionados[produto][sabor].precoTotal.toFixed(2);
                             listaSabores += produto + " - " + sabor + " x " + quantidade + " - Total: R$" + precoTotal + " <button onclick=\"removerItem('" + produto + "', '" + sabor + "')\">Remover</button><br>";
+                            // Adicionar os detalhes do item à listaSaboresBackend
+                            listaSaboresBackend.push({
+                                produto: produto,
+                                sabor: sabor,
+                                quantidade: quantidade,
+                                precoTotalQtd: precoTotal
+                            });
                         }
                     }
                 }
             }
-        
+
             itensSelecionados.innerHTML = listaSabores;
-        
-            // Atualiza o campo oculto com a lista de sabores
+            // Atualizar o campo oculto com a lista de sabores
             document.getElementById('listaSaboresInput').value = listaSabores;
+            // Atualizar o campo oculto com a lista de sabores para o back-end (como uma string JSON)
+            document.getElementById('listaSaboresBackendInput').value = JSON.stringify(listaSaboresBackend);
         }
 
         function atualizarPreco(produto) {

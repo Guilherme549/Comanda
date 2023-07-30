@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Comanda
-from decimal import Decimal
+import json
 
 
 def visualizarPedidos(request):
@@ -21,13 +21,14 @@ def comanda(request):
         qtdEspetinho = int(request.POST.get("qtdEspetinho"))
         precoTotal = request.POST.get("precoTotal")
 
-        listaSabores = request.POST.get("listaSabores")
-        if precoTotal:
-            precoTotal = Decimal(precoTotal)
-        else:
-            precoTotal = Decimal('0.00')
+        listaSaboresBackend = request.POST.get("listaSaboresBackend")
 
-        print(listaSabores)
+        lista_sabores_backend = json.loads(listaSaboresBackend)
+
+        for item in lista_sabores_backend:
+            print("sabor", item["sabor"])
+            print("quantidade", item["quantidade"])
+            print("Preço Total:", item["precoTotalQtd"])
 
         comanda = Comanda(
             mesa=mesa,
@@ -38,6 +39,7 @@ def comanda(request):
             espetinho=espetinho,
             espetinhoQtd=qtdEspetinho,
             precoTotal=precoTotal,
+            listaItensSelecionados=listaSaboresBackend,
         )
 
         comanda.save()
