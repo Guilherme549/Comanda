@@ -23,6 +23,7 @@ def comanda(request):
 
         listaSaboresBackend = request.POST.get("listaSaboresBackend")
 
+        # convertendo json
         lista_sabores_backend = json.loads(listaSaboresBackend)
 
         for item in lista_sabores_backend:
@@ -39,9 +40,13 @@ def comanda(request):
             espetinho=espetinho,
             espetinhoQtd=qtdEspetinho,
             precoTotal=precoTotal,
-            listaItensSelecionados=listaSaboresBackend,
+            listaItensSelecionados=lista_sabores_backend,
         )
 
         comanda.save()
         pedido = Comanda.objects.all()
         return render(request, "index.html", {"pedido": pedido})
+
+
+def pedido(request):
+    return render(request, "pedidoCliente.html")

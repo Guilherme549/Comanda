@@ -24,7 +24,9 @@ class Comanda(models.Model):
     )
 
     precoTotal = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    listaItensSelecionados = models.TextField(null=True)
+
+    # arquivo json
+    listaItensSelecionados = models.JSONField(null=True)
 
     def __str__(self):
         return self.mesa

@@ -12,18 +12,18 @@
 </head>
 <body>
     <header>
-        <h1>Buteko 41</h1>
+        <h1>Bar</h1>
     
     </header>
     <nav>
-        <form action="#" method="post">
+        <form action="#" method="GET">
                 <input  id="pesquisar" type="text" id="ipesquisa" placeholder="Buscar mesa">
                 <input id="buscar" type="submit" value="Buscar">
         </form>
     </nav>
     <main>
         {% for i in pedido%}
-        <a class="mesa" href="#">Mesa: {{i.mesa}}
+        <a class="mesa" href="{% url 'pedido' %}">Mesa: {{i.mesa}}
             <p>Cerveja: {{i.cerveja}}</p>
             <p>Preco: {{i.precoTotal}}</p>
         </a>
