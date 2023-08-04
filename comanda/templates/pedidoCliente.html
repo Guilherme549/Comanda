@@ -16,8 +16,7 @@
     <main>
         <form action=" {% url 'comanda' %}" method="POST" autocomplete="off"> {% csrf_token %}
             <fieldset>
-                <label for="mesa">Mesa:</label>
-                <input type="number" name="mesa" id="mesa" min="1" required>
+                <label for="mesa">Mesa: {% for pedido in pedidos %} {{ pedido.mesa }} {% endfor %}</label>
             </fieldset>
             <fieldset>
                 <table>

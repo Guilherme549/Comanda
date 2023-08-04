@@ -15,6 +15,12 @@
     </header>
     <main>
         <form action=" {% url 'comanda' %}" method="POST" autocomplete="off"> {% csrf_token %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {{message.tags}}">{{ message }}</div>
+                    {% endfor %}
+                    <br>
+                {% endif %}
             <fieldset>
                 <label for="mesa">Mesa:</label>
                 <input type="number" name="mesa" id="mesa" min="1" required>

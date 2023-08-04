@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.http import HttpResponse
 from .models import Comanda
 import json
+from django.contrib import messages
+from django.contrib.messages import constants
 
 
 def visualizarPedidos(request):
@@ -33,6 +35,12 @@ def comanda(request):
             print("quantidade", item["quantidade"])
             print("Preço Total:", item["precoTotalQtd"])
 
+        if Comanda.objects.filter(mesa=mesa).exists():
+            print("Mesa já está sendo usada.")
+            messages.add_message(request, constants.ERROR, "Mesa ja cadastrada!")
+    
+            return redirect(reverse('comanda'))
+
         comanda = Comanda(
             mesa=mesa,
             cerveja=cerveja,
@@ -46,12 +54,16 @@ def comanda(request):
         )
 
         comanda.save()
+        pedidos = Comanda.objects.all()
+
+        for pedido in pedidos:
+            if pedido.mesa == mesa:
+                print("numeros iguais")
+
         return redirect(reverse("visualizarPedidos"))
 
 
-def pedido(request, id):
+def pedido(request):
+    pedido = get_object_or_404(Comanda, pk=id)
     if request.method == "GET":
-        comanda = get_object_or_404(Comanda, id=id)
-        pedido = Comanda.objects.all()
-
-        return render(request, "pedidoCliente.html")
+        return render(request, "pedidoCliente.html", {"pedido": pedido})
