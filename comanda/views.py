@@ -58,6 +58,6 @@ def comanda(request):
 
 
 def pedido(request, id):
-    mesa = get_object_or_404(Comanda, id=id)
+    comanda = get_object_or_404(Comanda, id=id)
     if request.method == "GET":
-        return render(request, "pedidoCliente.html", {"mesa": mesa})
+        return render(request, "pedidoCliente.html", {"comanda": comanda})
