@@ -38,8 +38,8 @@ def comanda(request):
         if Comanda.objects.filter(mesa=mesa).exists():
             print("Mesa já está sendo usada.")
             messages.add_message(request, constants.ERROR, "Mesa ja cadastrada!")
-    
-            return redirect(reverse('comanda'))
+
+            return redirect(reverse("comanda"))
 
         comanda = Comanda(
             mesa=mesa,
@@ -54,16 +54,10 @@ def comanda(request):
         )
 
         comanda.save()
-        pedidos = Comanda.objects.all()
-
-        for pedido in pedidos:
-            if pedido.mesa == mesa:
-                print("numeros iguais")
-
         return redirect(reverse("visualizarPedidos"))
 
 
-def pedido(request):
-    pedido = get_object_or_404(Comanda, pk=id)
+def pedido(request, id):
+    mesa = get_object_or_404(Comanda, id=id)
     if request.method == "GET":
-        return render(request, "pedidoCliente.html", {"pedido": pedido})
+        return render(request, "pedidoCliente.html", {"mesa": mesa})
