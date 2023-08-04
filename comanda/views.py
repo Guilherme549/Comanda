@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse
 from .models import Comanda
 import json
 
 
 def visualizarPedidos(request):
-    return render(request, "index.html")
+    pedido = Comanda.objects.all()
+    return render(request, "index.html", {"pedido": pedido})
 
 
 def comanda(request):
@@ -44,9 +46,10 @@ def comanda(request):
         )
 
         comanda.save()
-        pedido = Comanda.objects.all()
+        return redirect(reverse("visualizarPedidos"))
         return render(request, "index.html", {"pedido": pedido})
 
 
 def pedido(request):
-    return render(request, "pedidoCliente.html")
+    pedido = Comanda.objects.all()
+    return render(request, "pedidoCliente.html", {"pedido": pedido})

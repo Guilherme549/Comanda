@@ -119,8 +119,21 @@
         <!-- Output para exibir os sabores selecionados -->
         <fieldset>
             <label for="itensSelecionados">Itens selecionados</label>
-            <output id="itensSelecionados"></output>
+            <output id="itensSelecionados">
+                <ul>
+                    {% for comanda in pedido %}
+                        {% for item in comanda.listaItensSelecionados %}
+                            <li>
+                                Produto: {{ item.sabor }}<br>
+                                Quantidade: {{ item.quantidade }}<br>
+                                Preço Total: R$ {{ item.precoTotalQtd }}
+                            </li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </output>
         </fieldset>
+        
     </main>
 
     <script>
