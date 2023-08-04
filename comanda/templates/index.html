@@ -22,17 +22,16 @@
         </form>
     </nav>
     <main>
-        {% for i in pedido%}
-        <a class="mesa" href="{% url 'pedido' %}">Mesa: {{i.mesa}}
-            <p>Cerveja: {{i.cerveja}}</p>
-            <p>Preco: {{i.precoTotal}}</p>
-        </a>
-
-        {%endfor%}
+        {% for pedido in pedidos %}
+           <a class="mesa" href="{% url 'pedido' pedido.id %}">Mesa: {{ pedido.mesa }}
+                <p>Cerveja: {{ pedido.cerveja }}</p>
+                <p>Preco: {{ pedido.precoTotal }}</p>
+            </a>
+        {% endfor %}
 
     </main>
     <div id="adicionar">
-        <a href="{% url 'comanda' %}"> + Adicionar pedido</a>
+        <a href="{% url 'comanda'  %}"> + Adicionar pedido</a>
     </div>
 </body>
 </html>

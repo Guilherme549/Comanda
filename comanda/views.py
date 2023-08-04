@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponse
 from .models import Comanda
@@ -6,8 +6,8 @@ import json
 
 
 def visualizarPedidos(request):
-    pedido = Comanda.objects.all()
-    return render(request, "index.html", {"pedido": pedido})
+    pedidos = Comanda.objects.all()
+    return render(request, "index.html", {"pedidos": pedidos})
 
 
 def comanda(request):
@@ -47,9 +47,11 @@ def comanda(request):
 
         comanda.save()
         return redirect(reverse("visualizarPedidos"))
-        return render(request, "index.html", {"pedido": pedido})
 
 
-def pedido(request):
-    pedido = Comanda.objects.all()
-    return render(request, "pedidoCliente.html", {"pedido": pedido})
+def pedido(request, id):
+    if request.method == "GET":
+        comanda = get_object_or_404(Comanda, id=id)
+        pedido = Comanda.objects.all()
+
+        return render(request, "pedidoCliente.html")
