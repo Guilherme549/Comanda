@@ -24,8 +24,7 @@
     <main>
         {% for pedido in pedidos %}
            <a class="mesa" href="{% url 'pedido' pedido.id %}">Mesa: {{ pedido.mesa }}
-                <p>Cerveja: {{ pedido.cerveja }}</p>
-                <p>Preco: {{ pedido.precoTotal }}</p>
+                <p>Preco Total: {{ pedido.precoTotal }}</p>
             </a>
         {% endfor %}
 
