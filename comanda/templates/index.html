@@ -12,27 +12,37 @@
 </head>
 <body>
     <header>
-        <h1>Bar</h1>
+       <a href="{% url 'visualizarPedidos' %}"><h1>Bar</h1></a>
     
     </header>
     <nav>
-        <form action="#" method="GET">
+        <form onsubmit="handleSearch(); return false;">
             {% csrf_token %}
-                <input  id="pesquisar" type="text" id="ipesquisa" placeholder="Buscar mesa">
-                <input id="buscar" type="submit" value="Buscar">
+            <input id="pesquisar" type="text" placeholder="Buscar mesa" name="pesquisarMesa">
+            <input id="buscar" type="submit" value="Buscar">
         </form>
     </nav>
     <main>
         {% for pedido in pedidos %}
-           <a class="mesa" href="{% url 'pedido' pedido.id %}">Mesa: {{ pedido.mesa }}
-                <p>Preco Total: {{ pedido.precoTotal }}</p>
-            </a>
+            <a class="mesa" href="{% url 'pedido' pedido.id %}">Mesa: {{ pedido.mesa }}
+                    <p>Preco Total: {{ pedido.precoTotal }}</p>
+                </a>
         {% endfor %}
 
     </main>
     <div id="adicionar">
         <a href="{% url 'comanda'  %}"> + Adicionar pedido</a>
     </div>
+
+    <script>
+        function handleSearch() {
+            const termoDeBusca = document.getElementById("pesquisar").value;
+            if (termoDeBusca.trim() !== "") {
+                // Redireciona para o endpoint de busca com o termo de busca como parâmetro de consulta
+                window.location.href = "{% url 'pesquisarMesa' %}?mesa=" + encodeURIComponent(termoDeBusca);
+            }
+        }
+    </script>
 
 </body>
 </html>

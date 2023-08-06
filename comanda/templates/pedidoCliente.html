@@ -114,7 +114,7 @@
                 </table>
                 <input id="finalizar-comanda" type="submit" value="Finalizar Comanda">
                 <br>
-                <a href="#">Atualizar</a>
+                <a href="{% url 'atualizarPedido' comanda.id %}">Atualizar</a>
             </fieldset>
             <fieldset>
                 <label for="precoTotal">Preço Total:</label>
