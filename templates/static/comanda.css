@@ -33,6 +33,10 @@ a {
     padding: 5px 10px;
 }
 
+#datahora{
+    float: right;
+}
+
 main {
     display: flex;
     justify-content: center;

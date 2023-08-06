@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.http import HttpResponse
 from .models import Comanda
 import json
 from django.contrib import messages
 from django.contrib.messages import constants
 from decimal import Decimal
+
 
 def visualizarPedidos(request):
     pedidos = Comanda.objects.all()
@@ -98,7 +98,7 @@ def atualizarPedido(request, id):
 
         return render(request, "pedidoCliente.html", {"comanda": comanda})
 
-        
+
 def pesquisarMesa(request):
     if request.method == "GET":
         mesa = request.GET.get("mesa")
@@ -110,4 +110,3 @@ def pesquisarMesa(request):
         return render(request, "index.html", {"pedidos": pedidos})
     else:
         return redirect(reverse("visualizarPedidos"))
-

@@ -24,9 +24,11 @@
     </nav>
     <main>
         {% for pedido in pedidos %}
-            <a class="mesa" href="{% url 'pedido' pedido.id %}">Mesa: {{ pedido.mesa }}
-                    <p>Preco Total: {{ pedido.precoTotal }}</p>
-                </a>
+            <a class="mesa" href="{% url 'pedido' pedido.id %}"><p>{{ pedido.data|date:"d/m/Y" }}
+                </p>
+                <h2>Mesa: {{ pedido.mesa }}</h2>
+                <h3>Valor a pagar: {{ pedido.precoTotal }}</h3>
+            </a>
         {% endfor %}
 
     </main>
