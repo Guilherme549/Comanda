@@ -40,7 +40,6 @@
         function handleSearch() {
             const termoDeBusca = document.getElementById("pesquisar").value;
             if (termoDeBusca.trim() !== "") {
-                // Redireciona para o endpoint de busca com o termo de busca como parâmetro de consulta
                 window.location.href = "{% url 'pesquisarMesa' %}?mesa=" + encodeURIComponent(termoDeBusca);
             }
         }
