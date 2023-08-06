@@ -25,7 +25,7 @@
                             <th>Item</th>
                             <th>Qtd</th>
                             <th>Valor Qtd</th>
-                            <th></th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -34,6 +34,7 @@
                                 {% for item in comanda.listaItensSelecionados %}
                                     {% if item.produto == "cerveja" %}
                                     {{item.sabor}}
+                                    <br>
                                     {% endif %}
                             {% endfor %}
                             </td>
@@ -41,6 +42,7 @@
                                 {% for item in comanda.listaItensSelecionados %}
                                     {% if item.produto == "cerveja" %}
                                     {{item.quantidade}}x
+                                    <br>
                                     {% endif %}
                             {% endfor %}
                             </td>
@@ -48,207 +50,78 @@
                                 {% for item in comanda.listaItensSelecionados %}
                                     {% if item.produto == "cerveja" %}
                                     {{item.precoTotalQtd}}+
+                                    <br>
                                     {% endif %}
                             {% endfor %}
                             </td>
-                            <td>
-                                <input type="button" value="Adicionar" onclick="adicionarItem('cerveja');">
-                            </td>
+                            
                         </tr>
                         <tr>
                             <td>
                                 {% for item in comanda.listaItensSelecionados %}
                                     {% if item.produto == "refrigerante" %}
                                     {{item.sabor}}
+                                    <br>
                                     {% endif %}
                             {% endfor %}
                             </td>
                             <td>
                                 {% for item in comanda.listaItensSelecionados %}
                                     {% if item.produto == "refrigerante" %}
-                                    {{item.quantidade}}
+                                    {{item.quantidade}}x
+                                    <br>
                                     {% endif %}
                             {% endfor %}
                             </td>
                             <td>
                                 {% for item in comanda.listaItensSelecionados %}
                                     {% if item.produto == "refrigerante" %}
-                                    {{item.precoTotalQtd}}
+                                    {{item.precoTotalQtd}}+
+                                    <br>
                                     {% endif %}
                             {% endfor %}
                             </td>
-                            <td>
-                                <input type="button" value="Adicionar" onclick="adicionarItem('refrigerante');">
-                            </td>
+                           
                         </tr>
                         <tr>
                             <td>
                                 {% for item in comanda.listaItensSelecionados %}
                                     {% if item.produto == "espetinho" %}
                                     {{item.sabor}}
+                                    <br>
                                     {% endif %}
                             {% endfor %}
                             </td>
                             <td>
                                 {% for item in comanda.listaItensSelecionados %}
                                     {% if item.produto == "espetinho" %}
-                                    {{item.quantidade}}
+                                    {{item.quantidade}}x
+                                    <br>
                                     {% endif %}
                             {% endfor %}
                             </td>
                             <td>
                                 {% for item in comanda.listaItensSelecionados %}
                                     {% if item.produto == "espetinho" %}
-                                    {{item.precoTotalQtd}}
+                                    {{item.precoTotalQtd}}+
+                                    <br>
                                     {% endif %}
                             {% endfor %}
                             </td>
-                            <td>
-                                <input type="button" value="Adicionar" onclick="adicionarItem('espetinho');">
-                            </td>
+
                         </tr>
                     </tbody>
                 </table>
-                <input id="enviar-pedido" type="submit" value="Confirmar">
+                <input id="finalizar-comanda" type="submit" value="Finalizar Comanda">
+                <br>
+                <a href="#">Atualizar comanda</a>
             </fieldset>
             <fieldset>
                 <label for="precoTotal">Preço Total:</label>
                 <output id="precoTotalOutput">{{comanda.precoTotal}}</output>
-                <!-- Adicione o campo de entrada oculto abaixo -->
-                <input type="hidden" name="precoTotal" id="precoTotalInput">
-                <input type="hidden" name="listaSabores" id="listaSaboresInput">
-                <input type="hidden" name="listaSaboresBackend" id="listaSaboresBackendInput">
             </fieldset>
         </form>
     </main>
-
-    <script>
-        // Função para salvar os dados do objeto saboresSelecionados no sessionStorage
-       
-
-        // Função para carregar os dados do sessionStorage para o objeto saboresSelecionados
-    
-
-        // Chama a função de carregar os dados do sessionStorage ao carregar a página
-
-
-        var saboresSelecionados = {};
-
-        function adicionarItem(produto) {
-            var selectElement = document.getElementById('input' + produto[0].toUpperCase() + produto.slice(1) + 's');
-            var saborSelecionado = selectElement.value;
-            var quantidadeElement = document.getElementById('qtd' + produto[0].toUpperCase() + produto.slice(1));
-            var quantidade = parseInt(quantidadeElement.value, 10);
-            var precoUnitario = parseFloat(selectElement.options[selectElement.selectedIndex].getAttribute('data-preco'));
-            var precoTotal = quantidade * precoUnitario;
-
-            if (selectElement.options[selectElement.selectedIndex].hasAttribute('disabled')) {
-                return; // Não adiciona à lista se a opção estiver desabilitada
-            }
-
-            if (!saboresSelecionados.hasOwnProperty(produto)) {
-                saboresSelecionados[produto] = {};
-            }
-
-            if (!saboresSelecionados[produto].hasOwnProperty(saborSelecionado)) {
-                saboresSelecionados[produto][saborSelecionado] = {
-                    quantidade: quantidade,
-                    precoUnitario: precoUnitario,
-                    precoTotal: precoTotal
-                };
-                atualizarListaSabores();
-                atualizarPrecoTotal();
-            } else {
-                saboresSelecionados[produto][saborSelecionado].quantidade += quantidade;
-                saboresSelecionados[produto][saborSelecionado].precoTotal += precoTotal;
-                atualizarListaSabores();
-                atualizarPrecoTotal();
-            }
-            
-        }
-
-        function removerItem(produto, sabor) {
-            if (saboresSelecionados.hasOwnProperty(produto) && saboresSelecionados[produto].hasOwnProperty(sabor)) {
-                delete saboresSelecionados[produto][sabor];
-                atualizarListaSabores();
-                atualizarPrecoTotal();
-            }
-            
-        }
-
-        function atualizarListaSabores() {
-            var itensSelecionados = document.getElementById('itensSelecionados');
-            var listaSabores = "";
-            var listaSaboresBackend = []; // Nova lista para enviar ao back-end
-
-            for (const produto in saboresSelecionados) {
-                if (saboresSelecionados.hasOwnProperty(produto)) {
-                    for (const sabor in saboresSelecionados[produto]) {
-                        if (sabor !== "precoTotal" && saboresSelecionados[produto].hasOwnProperty(sabor)) {
-                            var quantidade = saboresSelecionados[produto][sabor].quantidade;
-                            var precoTotal = saboresSelecionados[produto][sabor].precoTotal.toFixed(2);
-                            listaSabores += produto + " - " + sabor + " x " + quantidade + " - Total: R$" + precoTotal + " <button onclick=\"removerItem('" + produto + "', '" + sabor + "')\">Remover</button><br>";
-                            // Adicionar os detalhes do item à listaSaboresBackend
-                            listaSaboresBackend.push({
-                                produto: produto,
-                                sabor: sabor,
-                                quantidade: quantidade,
-                                precoTotalQtd: precoTotal
-                            });
-                        }
-                    }
-                }
-            }
-
-            itensSelecionados.innerHTML = listaSabores;
-            // Atualizar o campo oculto com a lista de sabores
-            document.getElementById('listaSaboresInput').value = listaSabores;
-            // Atualizar o campo oculto com a lista de sabores para o back-end (como uma string JSON)
-            document.getElementById('listaSaboresBackendInput').value = JSON.stringify(listaSaboresBackend);
-        }
-
-        function atualizarPreco(produto) {
-            var selectElement = document.getElementById('input' + produto[0].toUpperCase() + produto.slice(1) + 's');
-            var quantidadeElement = document.getElementById('qtd' + produto[0].toUpperCase() + produto.slice(1));
-            var quantidade = parseInt(quantidadeElement.value, 10);
-            var precoUnitario = parseFloat(selectElement.options[selectElement.selectedIndex].getAttribute('data-preco'));
-
-            var precoTotal = quantidade * precoUnitario;
-
-            document.getElementById('preco' + produto[0].toUpperCase() + produto.slice(1) + 'Output').innerText = precoUnitario.toFixed(2);
-
-            var saborSelecionado = selectElement.value;
-            if (saboresSelecionados.hasOwnProperty(produto) && saboresSelecionados[produto].hasOwnProperty(saborSelecionado)) {
-                quantidade = saboresSelecionados[produto][saborSelecionado].quantidade;
-                precoTotal = quantidade * precoUnitario;
-            }
-
-            if (saboresSelecionados.hasOwnProperty(produto) && saboresSelecionados[produto].hasOwnProperty(selectElement.value)) {
-                saboresSelecionados[produto][selectElement.value].quantidade = quantidade;
-                saboresSelecionados[produto][selectElement.value].precoTotal = precoTotal;
-                atualizarListaSabores();
-                atualizarPrecoTotal();
-            }
-        }
-
-        function atualizarPrecoTotal() {
-            var precoTotal = 0;
-
-            for (const produto in saboresSelecionados) {
-                if (saboresSelecionados.hasOwnProperty(produto)) {
-                    for (const sabor in saboresSelecionados[produto]) {
-                        if (sabor !== "precoTotal" && saboresSelecionados[produto].hasOwnProperty(sabor)) {
-                            precoTotal += saboresSelecionados[produto][sabor].precoTotal;
-                        }
-                    }
-                }
-            }
-
-            document.getElementById('precoTotalOutput').innerText = precoTotal.toFixed(2);
-            document.getElementById('precoTotalInput').value = precoTotal.toFixed(2);
-        }
-    </script>
-
 </body>
 
 </html>

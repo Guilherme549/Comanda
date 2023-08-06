@@ -17,6 +17,7 @@
     </header>
     <nav>
         <form action="#" method="GET">
+            {% csrf_token %}
                 <input  id="pesquisar" type="text" id="ipesquisa" placeholder="Buscar mesa">
                 <input id="buscar" type="submit" value="Buscar">
         </form>
