@@ -14,7 +14,7 @@
         <h1>Comanda</h1>
     </header>
     <main>
-        <form action=" {% url 'comanda' %}" method="POST" autocomplete="off"> {% csrf_token %}
+        <form action=" {% url 'pedido' comanda.id %}" method="POST" autocomplete="off"> {% csrf_token %}
             <fieldset>
                 <h2>Mesa: {{comanda.mesa}}</h2>
             </fieldset>
@@ -114,7 +114,7 @@
                 </table>
                 <input id="finalizar-comanda" type="submit" value="Finalizar Comanda">
                 <br>
-                <a href="#">Atualizar comanda</a>
+                <a href="#">Atualizar</a>
             </fieldset>
             <fieldset>
                 <label for="precoTotal">Preço Total:</label>

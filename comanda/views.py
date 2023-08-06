@@ -61,3 +61,6 @@ def pedido(request, id):
     comanda = get_object_or_404(Comanda, id=id)
     if request.method == "GET":
         return render(request, "pedidoCliente.html", {"comanda": comanda})
+    elif request.method == "POST":
+        comanda.delete()
+        return redirect(reverse("visualizarPedidos"))

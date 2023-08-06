@@ -51,13 +51,13 @@ nav{
 #adicionar{
     display: block;
     border: 1px solid black;
-    width: 200px;
+    width: 195px;
     height: 20px;
     background-color: black;
     border-radius: 48px;
     text-align: center;
     margin: 10px;
-    padding: 10px; 
+    padding: 8px; 
     position: fixed;
     top: 88%;
     left: 50%;
