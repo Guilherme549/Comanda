@@ -99,14 +99,13 @@ label {
     color: #61571D; /* Cor original para os labels */
 }
 
-/* Estilo para o output de sabores selecionados */
+
 #itensSelecionados{
     font-family: Arial, sans-serif;
     font-size: 16px;
-    margin-top: 20px;
     white-space: pre-line;
-    color:  white; /* Cor original para o texto do output */
-    line-height: 1.5;
+    color:  white; 
+}
 
 #adicionar:hover{
     background-color: #333;

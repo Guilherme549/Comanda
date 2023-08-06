@@ -16,40 +16,40 @@
     <main>
         <form action=" {% url 'comanda' %}" method="POST" autocomplete="off"> {% csrf_token %}
             <fieldset>
-                Mesa: {{comanda.mesa}}
+                <h2>Mesa: {{comanda.mesa}}</h2>
             </fieldset>
             <fieldset>
                 <table>
                     <thead>
                         <tr>
-                            <th>Cardápio</th>
+                            <th>Item</th>
                             <th>Qtd</th>
-                            <th>Preço Unitário</th>
+                            <th>Valor Qtd</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>
-                                <label for="inputCervejas">Cerveja:</label>
-                                <select id="inputCervejas" class="form-select" name="cerveja"
-                                    onchange="atualizarPreco('cerveja');">
-                                    <option selected disabled>Cerveja...</option>
-                                    <option value="heinekenLn" data-preco="7.50">HeinekenLn</option>
-                                    <option value="heineken269ml" data-preco="4.50">Heineken269ml</option>
-                                    <option value="heineken350ml" data-preco="5.50">Heineken350ml</option>
-                                    <option value="brahma269ml" data-preco="3.00">Brahma269ml</option>
-                                    <option value="brahma350ml" data-preco="3.50">Brahma350ml</option>
-                                    <option value="antarctica350ml" data-preco="3.50">Antarctica350ml</option>
-                                    <option value="amstel269ml" data-preco="3.00">Amstel269ml</option>
-                                    <option value="amstel350ml" data-preco="3.50">Amstel350ml</option>
-                                </select>
+                                {% for item in comanda.listaItensSelecionados %}
+                                    {% if item.produto == "cerveja" %}
+                                    {{item.sabor}}
+                                    {% endif %}
+                            {% endfor %}
                             </td>
                             <td>
-                                <input type="number" name="qtdCerveja" id="qtdCerveja" min="0" value="1">
+                                {% for item in comanda.listaItensSelecionados %}
+                                    {% if item.produto == "cerveja" %}
+                                    {{item.quantidade}}x
+                                    {% endif %}
+                            {% endfor %}
                             </td>
                             <td>
-                                <output id="precoCervejaOutput">0.00</output>
+                                {% for item in comanda.listaItensSelecionados %}
+                                    {% if item.produto == "cerveja" %}
+                                    {{item.precoTotalQtd}}+
+                                    {% endif %}
+                            {% endfor %}
                             </td>
                             <td>
                                 <input type="button" value="Adicionar" onclick="adicionarItem('cerveja');">
@@ -57,24 +57,25 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="refrigerantes">Refrigerantes</label>
-                                <select name="refrigerantes" id="inputRefrigerantes"
-                                    onchange="atualizarPreco('refrigerante');">
-                                    <option selected disabled>Refri...</option>
-                                    <option value="coca2L" data-preco="10.00">Coca2L</option>
-                                    <option value="cocaRt" data-preco="7.50">CocaRt</option>
-                                    <option value="coca350" data-preco="3.50">Coca350</option>
-                                    <option value="guarana2L" data-preco="8.00">Guaraná2L</option>
-                                    <option value="guarana1L" data-preco="4.50">Guaraná1L</option>
-                                    <option value="guarana350" data-preco="3.50">Guaraná350</option>
-                                    <option value="fanta230" data-preco="3.50">Fanta350</option>
-                                </select>
+                                {% for item in comanda.listaItensSelecionados %}
+                                    {% if item.produto == "refrigerante" %}
+                                    {{item.sabor}}
+                                    {% endif %}
+                            {% endfor %}
                             </td>
                             <td>
-                                <input type="number" name="qtdRefrigerante" id="qtdRefrigerante" min="0" value="1">
+                                {% for item in comanda.listaItensSelecionados %}
+                                    {% if item.produto == "refrigerante" %}
+                                    {{item.quantidade}}
+                                    {% endif %}
+                            {% endfor %}
                             </td>
                             <td>
-                                <output id="precoRefrigeranteOutput">0.00</output>
+                                {% for item in comanda.listaItensSelecionados %}
+                                    {% if item.produto == "refrigerante" %}
+                                    {{item.precoTotalQtd}}
+                                    {% endif %}
+                            {% endfor %}
                             </td>
                             <td>
                                 <input type="button" value="Adicionar" onclick="adicionarItem('refrigerante');">
@@ -82,20 +83,25 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="espetinhos">Espetinho:</label>
-                                <select name="espetinhos" id="inputEspetinhos" onchange="atualizarPreco('espetinho');">
-                                    <option selected disabled>Espetos...</option>
-                                    <option value="medalhao" data-preco="8.00">Medalhão</option>
-                                    <option value="carneVaca" data-preco="8.00">CarneVaca</option>
-                                    <option value="linguica" data-preco="6.00">Linguiça</option>
-                                    <option value="kafta" data-preco="6.00">Kafta</option>
-                                </select>
+                                {% for item in comanda.listaItensSelecionados %}
+                                    {% if item.produto == "espetinho" %}
+                                    {{item.sabor}}
+                                    {% endif %}
+                            {% endfor %}
                             </td>
                             <td>
-                                <input type="number" name="qtdEspetinho" id="qtdEspetinho" min="0" value="1">
+                                {% for item in comanda.listaItensSelecionados %}
+                                    {% if item.produto == "espetinho" %}
+                                    {{item.quantidade}}
+                                    {% endif %}
+                            {% endfor %}
                             </td>
                             <td>
-                                <output id="precoEspetinhoOutput">0.00</output>
+                                {% for item in comanda.listaItensSelecionados %}
+                                    {% if item.produto == "espetinho" %}
+                                    {{item.precoTotalQtd}}
+                                    {% endif %}
+                            {% endfor %}
                             </td>
                             <td>
                                 <input type="button" value="Adicionar" onclick="adicionarItem('espetinho');">
@@ -107,27 +113,13 @@
             </fieldset>
             <fieldset>
                 <label for="precoTotal">Preço Total:</label>
-                <output id="precoTotalOutput">0.00</output>
+                <output id="precoTotalOutput">{{comanda.precoTotal}}</output>
                 <!-- Adicione o campo de entrada oculto abaixo -->
                 <input type="hidden" name="precoTotal" id="precoTotalInput">
                 <input type="hidden" name="listaSabores" id="listaSaboresInput">
                 <input type="hidden" name="listaSaboresBackend" id="listaSaboresBackendInput">
             </fieldset>
         </form>
-
-        <!-- Output para exibir os sabores selecionados -->
-        <fieldset>
-            <label for="itensSelecionados">Itens selecionados</label>
-            <output id="itensSelecionados">
-                <ul>
-                    {% for item in comanda.listaItensSelecionados %}
-                        {{item.produto}}: {{item.sabor}} {{item.quantidade}}X {{item.precoTotalQtd}}R$
-                        
-                    {% endfor %}
-                </ul>
-            </output>
-        </fieldset>
-        
     </main>
 
     <script>
