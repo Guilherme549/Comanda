@@ -14,13 +14,13 @@
         <h1>Comanda</h1>
     </header>
     <main>
-        <form action=" {% url 'comanda' %}" method="POST" autocomplete="off"> {% csrf_token %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert {{message.tags}}">{{ message }}</div>
-                    {% endfor %}
-                    <br>
-                {% endif %}
+        <form action="{% url 'comanda' %}" method="POST" autocomplete="off"> {% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{message.tags}}">{{ message }}</div>
+                {% endfor %}
+                <br>
+            {% endif %}
             <fieldset>
                 <label for="mesa">Mesa:</label>
                 <input type="number" name="mesa" id="mesa" min="1" required>
@@ -110,7 +110,8 @@
                         </tr>
                     </tbody>
                 </table>
-                <input id="enviar-pedido" type="submit" value="Confirmar">
+                <!-- Adicione uma classe 'esconder' para esconder o campo até que um item seja adicionado -->
+                <input id="enviar-pedido" type="submit" value="Confirmar" class="esconder" disabled>
             </fieldset>
             <fieldset>
                 <label for="precoTotal">Preço Total:</label>
@@ -130,7 +131,7 @@
     </main>
 
     <script>
-        
+
         var saboresSelecionados = {};
 
         function adicionarItem(produto) {
@@ -163,7 +164,11 @@
                 atualizarListaSabores();
                 atualizarPrecoTotal();
             }
-            
+
+            // Habilitar o botão de enviar o pedido ao adicionar um item à lista
+            var enviarPedidoBtn = document.getElementById('enviar-pedido');
+            enviarPedidoBtn.classList.remove('esconder');
+            enviarPedidoBtn.disabled = false;
         }
 
         function removerItem(produto, sabor) {
@@ -172,7 +177,6 @@
                 atualizarListaSabores();
                 atualizarPrecoTotal();
             }
-            
         }
 
         function atualizarListaSabores() {
@@ -246,6 +250,7 @@
             document.getElementById('precoTotalOutput').innerText = precoTotal.toFixed(2);
             document.getElementById('precoTotalInput').value = precoTotal.toFixed(2);
         }
+
     </script>
 
 </body>
