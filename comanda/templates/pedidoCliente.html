@@ -15,7 +15,8 @@
     </header>
     <main>
 
-        <form action=" {% url 'pedido' comanda.id %}" method="POST" autocomplete="off"> {% csrf_token %}
+        <form action=" {% url 'pedido' comanda.id %}" method="POST" autocomplete="off"> 
+            {% csrf_token %}
             <p id="datahora"> {{comanda.data|date:"d/m/Y"}}
                 <br>
                 Hora: {{comanda.horario}}

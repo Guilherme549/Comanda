@@ -13,7 +13,6 @@
 <body>
     <header>
        <a href="{% url 'visualizarPedidos' %}"><h1>Bar</h1></a>
-    
     </header>
     <nav>
         <form onsubmit="handleSearch(); return false;">
@@ -23,14 +22,17 @@
         </form>
     </nav>
     <main>
-        {% for pedido in pedidos %}
-            <a class="mesa" href="{% url 'pedido' pedido.id %}"><p>{{ pedido.data|date:"d/m/Y" }}
-                </p>
-                <h2>Mesa: {{ pedido.mesa }}</h2>
-                <h3>Valor a pagar: {{ pedido.precoTotal }}</h3>
-            </a>
-        {% endfor %}
-
+        {% if pedidos %}
+            {% for pedido in pedidos %}
+                <a class="mesa" href="{% url 'pedido' pedido.id %}">
+                    <p>{{ pedido.data|date:"d/m/Y" }}</p>
+                    <h2>Mesa: {{ pedido.mesa }}</h2>
+                    <h3>Valor a pagar: {{ pedido.precoTotal }}</h3>
+                </a>
+            {% endfor %}
+        {% else %}
+            Não há pedidos disponíveis.
+        {% endif %}
     </main>
     <div id="adicionar">
         <a href="{% url 'comanda'  %}"> + Adicionar pedido</a>

@@ -14,7 +14,8 @@
         <h1>Comanda</h1>
     </header>
     <main>
-        <form action="{% url 'comanda' %}" method="POST" autocomplete="off"> {% csrf_token %}
+        <form action="{% url 'comanda' %}" method="POST" autocomplete="off"> 
+            {% csrf_token %}
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert {{message.tags}}">{{ message }}</div>
