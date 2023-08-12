@@ -1,13 +1,16 @@
-# fly.toml app configuration file generated for conveniencia-comanda41 on 2023-08-07T11:22:06-03:00
+# fly.toml app configuration file generated for conveniencia-41 on 2023-08-09T21:42:13-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "conveniencia-comanda41"
+app = "conveniencia-41"
 primary_region = "gru"
 console_command = "/code/manage.py shell"
 
 [build]
+
+[deploy]
+  release_command = "python manage.py migrate"
 
 [env]
   PORT = "8000"
